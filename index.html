@@ -1,0 +1,48 @@
+<html>
+<head>
+
+<title>Design Patterns in Tetris using Java</title>
+
+</head>
+
+
+
+<body>
+<center><h1>Design Patterns</h1>
+
+<!--"CONVERTED_APPLET"-->
+<!-- HTML CONVERTER -->
+<OBJECT width=250 height=350
+    classid = "clsid:CAFEEFAC-0014-0001-0000-ABCDEFFEDCBA"
+    codebase = "$"
+    $>
+    <PARAM NAME = CODE VALUE = "Tetris.class" >
+    <PARAM NAME = "type" VALUE = "$">
+    <PARAM NAME = "scriptable" VALUE = "false">
+    <PARAM NAME = X VALUE=15>
+    <PARAM NAME = Y VALUE=25>
+
+    <COMMENT>
+	<EMBED 
+            type = "$" $ 
+            X =15
+            Y =25 
+	    scriptable = false 
+	    pluginspage = "$">
+	    <NOEMBED>
+            
+            </NOEMBED>
+	</EMBED>
+    </COMMENT>
+</OBJECT>
+<!--
+<APPLET CODE = "Tetris.class" width=250 height=350>
+<PARAM NAME = X VALUE=15>
+<PARAM NAME = Y VALUE=25>
+</APPLET>
+-->
+<!--"END_CONVERTED_APPLET"-->
+
+
+</center>
+<font size=4 color=black>Parçayý hareket ettirmek için <font size=5 color=blue>ok tuþlarýný<font size=4 color=black> kullanýn. Ayrýca <font size=5 color=blue>Z<font size=4 color=black> ve <font size=5 color=blue>X<font size=4 color=black> tuþlarýný parçayý her iki yönde çevirmek için kullanabilirsiniz. <font size=5 color=blue>Boþluk<font size=4 color=black> çubuðu parçayý aþaðý düþürür. <font size=5 color=blue>R<font size=4 color=black> ile oyun baþtan baþlatýlýr. <font size=5 color=blue>P<font size=4 color=black> ile oyun durdurulur.Bunun dýþýnda oyun kaydetme ve en son kaydedileni yükleme özelliðini kullanmak için<font size=5 color=blue>K<font size=4 color=black> (kaydet) ve <font size=5 color=blue>Y<font size=4 color=black>(yükle) tuþlarýný kullanýnýz.<br><br><br><br><br><br><br><br><br><h1>Design Patterns:</h1><br><br><li><h2>Factory pattern</h2>Bu kalýbý uygulamak için akla ilk gelen alan parçalarýn oluþturulmasýydý. Bu amaçla parçalar oluþturulurken ParcaFactory sýnýfýný kullandým. Bu sýnýf Grid isimli temel sýnýftan türeyen parçalardan hangisinin oluþturulacaðý ile ilgileniyor ve bunu kullanan TetrisOyun sýnýfýnýn bu iþle ilgilenmemesini saðlýyordu. Sýnýflarý ve iliþkileri bir þemayla gösterirsek:<br><br><img src="factory.jpg"><br><br>Burada ParcaFactory sýnýfýnýn YeniParca() fonksiyonu kullanýlarak istenen özel bir parça veya rasgele bir parça veya hazýr bir parçanýn kopyasý oluþturulabiliyor.Burada Factory kullanýmý ile hangi parçanýn yaratýldýðý bilgisi yerelleþtirilmiþ oldu ve TetrisOyun sýnýfý hangi parçanýn yaratýlacaðýyla ilgilenmemiþ oldu.<br><br><br><br><li><h2>Decorator pattern</h2>Programda kullanýlan ve kullanýcý arayüzüne sahip olan bütün sýnýflar Sekil sýnýfýndan türetilmektedir. Benim Decorator kalýbý için yaptýðým örnek sýnýf Yazi_Decorator sýnýfýdýr. Bu sýnýfýn kullaným amacý yine görsel olup, parametre olarak aldýðý Sekil sýnýfýndan türetilmiþ herhangi bir sýnýfýn üzerine yazý yazabilmesidir. Bu sýnýfý kullanarak türetilen herhangi bir sýnýfýn üzerinde geçici bir yazý yazabiliriz. Yazi_Decorator sýnýfý verilen sýnýfýn çizim alanýnýn ortasýna istenilen bir mesajý yazabilmektedir. Bunu ata sýnýf olan Ciz() fonksiyonunu yeniden tanýmlayarak yapmaktadýr. Önce hedef sýnýfýn Ciz fonksiyonunu çaðýrmakta ve daha sonra yazýlacak mesajý yazmaktadýr. Bu özelliði örneðin oyun alanýnýn ortasýna DURAKLATILDI  veya OYUN BÝTTÝ gibi mesajlar yazmak için veya herhangi bir düðme veya kutunun üzerine GEÇERSÝZ veya KULLANILAMAZ gibi mesajlar yazmak için kullanabiliriz. Oyun içerisinde bu sýnýf, appletin alt bölgesindeki kutularýn içerisine durum mesajlarýný yazmak için kullandým. Þemasý:<br><br><img src="decorator.jpg"><br><br><br><br><br><br><li><h2>Memento pattern</h2>Oyun esnasýnda herhangi bir anda (oyunun bitmiþ olduðu durumlar hariç) oyun kaydedilerek istenilen herhangi bir anda oyun en son kaydedilen haliyle tekrar yüklenebilmektedir. Bu özelliði ekleyebilmek için Memento kullandým.<br><br><img src="memento.jpg"><br><br>Program içerisinde oyun hakkýndaki bütün bilgiler (inen parçanýn türü, koordinatlarý, skor, oyunalanýndaki düþmüþ parçalar) TetrisOyun sýnýfýnda tutulmaktadýr. Dolayýsiyle sadece bu sýnýfýn kaydedilmesi yeterli olacaktýr. Onun için yazdýðým Memento sýnýfý hedef sýnýf olarak TetrisOyun sýnýfýný almakta ve ayrýca içindeki bilgileri de kaydetmektedir. Memento sýnýfý TetrisOyun sýnýfý ile ayný kaynak kod kütüðü içerisinde bulunduðundan dolayý onun içerisindeki deðiþkenlere eriþebilmektedir. Burada Originator, TetrisOyun sýnýfý, Memento ayný isimli Memento sýnýfý ve Caretaker ise Tetris sýnýfýnýn kendisidir.Bu kullaným sayesinde enkapsülasyon bozulmamýþ olur ve Tetris sýnýfý bu iþle ilgilenmeden oyun kaydedilmesi ve geri yüklenmesi yapýlmýþ olur.<br><br><br><h2>Kaynak Kodlar:</h2><li><a href="Tetris.java">Tetris.java</a><li><a href="TetrisOyun.java">TetrisOyun.java</a><li><a href="ParcaFactory.java">ParcaFactory.java</a><li><a href="Yazi_Decorator.java">Yazi_Decorator.java</a><li><a href="Grid.java">Grid.java</a><li><a href="Sekil.java">Sekil.java</a><li><a href="Kutu.java">Kutu.java</a>
